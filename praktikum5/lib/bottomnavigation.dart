@@ -58,7 +58,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         title: const Text('BottomNavigationBar Sample'),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _widgetOptions.elementAt(_selectedIndex),
+            ElevatedButton(
+              onPressed: () {
+                print('ini done');
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -82,3 +93,4 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
+

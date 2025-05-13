@@ -27,6 +27,7 @@ class MyStatefulWidget extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
+  String selectedValue = 'Home';
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -48,7 +49,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      selectedValue = _widgetOptions[index].toString().split(':')[1].trim();
     });
+  }
+
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem<String>(
+        value: "Home",
+        child: Text("Home"),
+      ),
+      const DropdownMenuItem<String>(
+        value: "Business",
+        child: Text("Business"),
+      ),
+      const DropdownMenuItem<String>(
+        value: "School",
+        child: Text("School"),
+      ),
+    ];
+    return menuItems;
   }
 
   @override
@@ -61,12 +81,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _widgetOptions.elementAt(_selectedIndex),
-            ElevatedButton(
-              onPressed: () {
-                print('ini done');
+            DropdownButton(
+              value: selectedValue,
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedValue = newValue!;
+                });
               },
-              child: const Text('Submit'),
+              items: dropdownItems,
+            ),
+            _widgetOptions.elementAt(_selectedIndex),
+            TextButton(
+              child: const Text('Menu'),
+              onPressed: () {
+                print('sukses');
+              },
             ),
           ],
         ),
@@ -93,4 +122,3 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
-
